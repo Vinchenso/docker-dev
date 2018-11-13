@@ -1,8 +1,9 @@
-FROM bitnami/minideb
+FROM ubuntu:cosmic 
 
-RUN install_packages ca-certificates python-dev python-pip python3-dev python3-pip xsel git wget tmux software-properties-common curl zsh 
+RUN apt update 
+RUN apt-get install -y ca-certificates python-dev python-pip python3-dev python3-pip apt-transport-https ripgrep xsel git wget tmux software-properties-common curl zsh 
 
-RUN apt-add-repository ppa:neovim-ppa/stable && apt-get update && install_packages neovim
+RUN apt-add-repository ppa:neovim-ppa/unstable && apt-get update && apt-get install -y neovim
 
 RUN cd /tmp \
     && curl -LO https://github.com/BurntSushi/ripgrep/releases/download/0.10.0/ripgrep_0.10.0_amd64.deb \
@@ -18,8 +19,8 @@ RUN cd \
     && git clone https://github.com/Vinchenso/dotfiles.git \
     && cd dotfiles
 
-RUN mkdir .config
-RUN mkdir .config/nvim
+RUN cd && mkdir .config
+RUN cd && mkdir .config/nvim
 
 RUN ln -sf ~/dotfiles/init.vim ~/.config/nvim/init.vim \
     && ln -sf ~/dotfiles/tmux.conf ~/.tmux-conf 
