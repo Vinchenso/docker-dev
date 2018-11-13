@@ -3,4 +3,5 @@ version: "3"
 services:
   docker-dev:
     build: .
+    image: docker-dev:v1
 
